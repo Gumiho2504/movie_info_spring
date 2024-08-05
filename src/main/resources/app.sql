@@ -1,52 +1,52 @@
-CREATE DATABASE MOVIES_INFO
+use MOVIES_INFO;
 
 -- Create the tables
 
 CREATE TABLE Genres (
-    GenreID INT AUTO_INCREMENT PRIMARY KEY,
-    Name VARCHAR(100)
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100)
 );
 
 CREATE TABLE Actors (
-    ActorID INT AUTO_INCREMENT PRIMARY KEY,
-    Name VARCHAR(100)
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100)
 );
 
 CREATE TABLE Directors (
-    DirectorID INT AUTO_INCREMENT PRIMARY KEY,
-    Name VARCHAR(100)
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100)
 );
 
 CREATE TABLE Movies (
-    MovieID INT AUTO_INCREMENT PRIMARY KEY,
-    Title VARCHAR(255),
-    Description TEXT,
-    ReleaseDate DATE,
-    Rating DECIMAL(3, 1),
-    Duration INT,
-    DirectorID INT,
-    FOREIGN KEY (DirectorID) REFERENCES Directors(DirectorID)
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    title VARCHAR(255),
+    description TEXT,
+    release_date DATE,
+    rating DECIMAL(3, 1),
+    duration INT,
+    director_id INT,
+    FOREIGN KEY (director_id) REFERENCES Directors(id)
 );
 
 CREATE TABLE MovieGenres (
-    MovieID INT,
-    GenreID INT,
-    PRIMARY KEY (MovieID, GenreID),
-    FOREIGN KEY (MovieID) REFERENCES Movies(MovieID),
-    FOREIGN KEY (GenreID) REFERENCES Genres(GenreID)
+    movie_id INT,
+    genre_id INT,
+    PRIMARY KEY (movie_id, genre_id),
+    FOREIGN KEY (movie_id) REFERENCES Movies(id),
+    FOREIGN KEY (genre_id) REFERENCES Genres(id)
 );
 
 CREATE TABLE MovieActors (
-    MovieID INT,
-    ActorID INT,
-    Role VARCHAR(100),
-    PRIMARY KEY (MovieID, ActorID),
-    FOREIGN KEY (MovieID) REFERENCES Movies(MovieID),
-    FOREIGN KEY (ActorID) REFERENCES Actors(ActorID)
+    movie_id INT,
+    actor_id INT,
+    role VARCHAR(100),
+    PRIMARY KEY (movie_id, actor_id),
+    FOREIGN KEY (movie_id) REFERENCES Movies(id),
+    FOREIGN KEY (actor_id) REFERENCES Actors(id)
 );
 
 -- Insert data into Genres table
-INSERT INTO Genres (Name) VALUES
+INSERT INTO Genres (name) VALUES
 ('Action'),
 ('Adventure'),
 ('Sci-Fi'),
@@ -54,23 +54,23 @@ INSERT INTO Genres (Name) VALUES
 ('Drama');
 
 -- Insert data into Actors table
-INSERT INTO Actors (Name) VALUES
+INSERT INTO Actors (name) VALUES
 ('Leonardo DiCaprio'),
 ('Joseph Gordon-Levitt'),
 ('Christian Bale'),
 ('Heath Ledger');
 
 -- Insert data into Directors table
-INSERT INTO Directors (Name) VALUES
+INSERT INTO Directors (name) VALUES
 ('Christopher Nolan');
 
 -- Insert data into Movies table
-INSERT INTO Movies (Title, Description, ReleaseDate, Rating, Duration, DirectorID) VALUES
+INSERT INTO Movies (title, description, release_date, rating, duration, director_id) VALUES
 ('Inception', 'A thief who steals corporate secrets through the use of dream-sharing technology is given the inverse task of planting an idea into the mind of a CEO.', '2010-07-16', 8.8, 148, 1),
 ('The Dark Knight', 'When the menace known as the Joker emerges from his mysterious past, he wreaks havoc and chaos on the people of Gotham.', '2008-07-18', 9.0, 152, 1);
 
 -- Insert data into MovieGenres table
-INSERT INTO MovieGenres (MovieID, GenreID) VALUES
+INSERT INTO MovieGenres (movie_id, genre_id) VALUES
 (1, 1),
 (1, 2),
 (1, 3),
@@ -79,7 +79,7 @@ INSERT INTO MovieGenres (MovieID, GenreID) VALUES
 (2, 5);
 
 -- Insert data into MovieActors table
-INSERT INTO MovieActors (MovieID, ActorID, Role) VALUES
+INSERT INTO MovieActors (movie_id, actor_id, role) VALUES
 (1, 1, 'Cobb'),
 (1, 2, 'Arthur'),
 (2, 3, 'Bruce Wayne'),
