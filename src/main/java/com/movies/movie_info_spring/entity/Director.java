@@ -22,7 +22,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "Directors")
+@Table(name = "directors")
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Director {
     
@@ -32,8 +32,8 @@ public class Director {
     private String name;
     
 
-    @OneToMany(mappedBy = "director",cascade = CascadeType.ALL)
-    @JsonManagedReference
-    private List<Movie> movie;
+    // @OneToMany(mappedBy = "director",cascade = CascadeType.ALL)
+    // @JsonManagedReference
+    // private List<Movie> movie;
     
 }

@@ -2,10 +2,9 @@ package com.movies.movie_info_spring.entity;
 
 import java.util.Date;
 import java.util.Set;
-
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -25,8 +24,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "Movies")
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler", "movie"})
+@Table(name = "movies")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler", "actor"})
 public class Movie {
 
    
@@ -44,14 +43,23 @@ public class Movie {
   
     private Director director;
 
+    @ManyToMany
+    @JoinTable(
+        name = "movie_genres",
+        joinColumns = @JoinColumn(name = "movie_id"),
+        inverseJoinColumns = @JoinColumn(name = "genre_id")
+    )
+    private Set<Genre> genres;
+
     // @ManyToMany
     // @JoinTable(
-    //     name = "MovieGenres",
-    //     joinColumns = @JoinColumn(name = "movieID"),
-    //     inverseJoinColumns = @JoinColumn(name = "genreID")
+    //     name = "movie_actors",
+    //     joinColumns = @JoinColumn(name = "movie_id"),
+    //     inverseJoinColumns = @JoinColumn(name = "actor_id")
     // )
-    // private Set<Genre> genres;
+    //  @JsonBackReference
+    // private Set<Actor> actors;
+    @OneToMany(mappedBy = "movie",cascade = CascadeType.ALL)
 
-    // @OneToMany(mappedBy = "movie")
-    // private Set<MovieActor> actors;
+    private Set<MovieActor> actors;
 }

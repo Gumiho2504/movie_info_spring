@@ -1,32 +1,51 @@
-// package com.movies.movie_info_spring.entity;
+package com.movies.movie_info_spring.entity;
 
-// import jakarta.persistence.Entity;
-// import jakarta.persistence.Id;
-// import jakarta.persistence.IdClass;
-// import jakarta.persistence.JoinColumn;
-// import jakarta.persistence.ManyToOne;
-// import jakarta.persistence.Table;
-// import lombok.AllArgsConstructor;
-// import lombok.Builder;
-// import lombok.Data;
-// import lombok.NoArgsConstructor;
-// @Data
-// @Builder
-// @AllArgsConstructor
-// @NoArgsConstructor
-// @Entity
-// @IdClass(MovieActorId.class)
-// @Table(name = "MovieActors")
-// public class MovieActor {
-//     @Id
-//     @ManyToOne
-//     @JoinColumn(name = "movieID")
-//     private Movie movie;
+import java.io.Serializable;
 
-//     @Id
-//     @ManyToOne
-//     @JoinColumn(name = "actorID")
-//     private Actor actor;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.IdClass;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.MapsId;
+import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
 
-//     private String role;
-// }
+
+@Data
+@Builder
+@Entity
+@Table(name = "movie_actors")
+@AllArgsConstructor
+@NoArgsConstructor
+@ToString
+@IdClass(MovieActorId.class)
+
+public class MovieActor implements Serializable{
+   
+    @Id
+    @Column(name = "movie_id")
+    private long movie_id;
+
+    @Id
+    @Column(name = "actor_id")
+    private long actor_id;
+
+   
+    @ManyToOne
+    @MapsId("movie_id")
+    @JoinColumn(name = "movie_id", insertable = false, updatable = false)
+    private Movie movie;
+
+    @ManyToOne
+    @MapsId("actor_id")
+    @JoinColumn(name = "actor_id", insertable = false, updatable = false)
+    private Actor actor;
+
+    private String role;
+}
