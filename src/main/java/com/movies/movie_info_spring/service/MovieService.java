@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 import com.movies.movie_info_spring.entity.Movie;
 import com.movies.movie_info_spring.repository.MovieRepository;
 
+import jakarta.transaction.Transactional;
+
 @Service
 public class MovieService {
     @Autowired
@@ -20,5 +22,10 @@ public class MovieService {
 
     public Optional<Movie> getMovieById(long id){
         return movieRepository.findById(id);
+    }
+
+    @Transactional
+    public Movie postMovie(Movie movie){
+        return movieRepository.save(movie);
     }
 }
